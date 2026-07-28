@@ -1,0 +1,23 @@
+{
+  "name": "ts3-discord-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "register:guild": "node scripts/register-commands.mjs guild",
+    "register:global": "node scripts/register-commands.mjs global",
+    "db:migrate:local": "wrangler d1 migrations apply ts3-discord-bot --local",
+    "db:migrate:remote": "wrangler d1 migrations apply ts3-discord-bot --remote"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "typescript": "latest",
+    "wrangler": "latest"
+  }
+}

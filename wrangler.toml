@@ -1,0 +1,9 @@
+name = "ts3-discord-bot"
+main = "src/index.ts"
+compatibility_date = "2026-07-29"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ts3-discord-bot"
+database_id = "replace-with-your-d1-database-id"
+migrations_dir = "migrations"

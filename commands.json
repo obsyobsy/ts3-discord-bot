@@ -1,0 +1,194 @@
+[
+  {
+    "name": "setup",
+    "description": "Configura il sistema permessi TS3-like",
+    "type": 1,
+    "dm_permission": false,
+    "default_member_permissions": "8",
+    "options": [
+      {
+        "name": "seed",
+        "description": "Crea gruppi e permessi base, poi assegna Root a chi esegue",
+        "type": 1
+      }
+    ]
+  },
+  {
+    "name": "servergroup",
+    "description": "Gestisce i Server Group stile TeamSpeak 3",
+    "type": 1,
+    "dm_permission": false,
+    "options": [
+      {
+        "name": "list",
+        "description": "Mostra i Server Group configurati",
+        "type": 1
+      },
+      {
+        "name": "info",
+        "description": "Mostra dettagli e permessi di un Server Group",
+        "type": 1,
+        "options": [
+          { "name": "name", "description": "Nome del gruppo", "type": 3, "required": true }
+        ]
+      },
+      {
+        "name": "create",
+        "description": "Crea un Server Group vuoto",
+        "type": 1,
+        "options": [
+          { "name": "name", "description": "Nome del gruppo", "type": 3, "required": true },
+          { "name": "sort_order", "description": "Ordine logico del gruppo", "type": 4, "required": false }
+        ]
+      },
+      {
+        "name": "delete",
+        "description": "Elimina un Server Group non protetto",
+        "type": 1,
+        "options": [
+          { "name": "name", "description": "Nome del gruppo", "type": 3, "required": true }
+        ]
+      },
+      {
+        "name": "bind-role",
+        "description": "Collega un Server Group a un ruolo Discord",
+        "type": 1,
+        "options": [
+          { "name": "name", "description": "Nome del gruppo", "type": 3, "required": true },
+          { "name": "role", "description": "Ruolo Discord da sincronizzare", "type": 8, "required": true }
+        ]
+      },
+      {
+        "name": "set-perm",
+        "description": "Imposta un permesso su un Server Group",
+        "type": 1,
+        "options": [
+          { "name": "group", "description": "Nome del gruppo", "type": 3, "required": true },
+          { "name": "key", "description": "Chiave permesso TS3-like", "type": 3, "required": true },
+          { "name": "value", "description": "Valore: true/false o numero", "type": 3, "required": true },
+          { "name": "grant", "description": "Grant value richiesto per modificare questo permesso", "type": 4, "required": false },
+          { "name": "negated", "description": "Nega il permesso", "type": 5, "required": false },
+          { "name": "skip", "description": "Blocca override di livello canale", "type": 5, "required": false }
+        ]
+      },
+      {
+        "name": "add-member",
+        "description": "Aggiunge un utente a un Server Group",
+        "type": 1,
+        "options": [
+          { "name": "user", "description": "Utente Discord", "type": 6, "required": true },
+          { "name": "group", "description": "Nome del gruppo", "type": 3, "required": true }
+        ]
+      },
+      {
+        "name": "remove-member",
+        "description": "Rimuove un utente da un Server Group",
+        "type": 1,
+        "options": [
+          { "name": "user", "description": "Utente Discord", "type": 6, "required": true },
+          { "name": "group", "description": "Nome del gruppo", "type": 3, "required": true }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "clientperm",
+    "description": "Gestisce permessi diretti assegnati a un client",
+    "type": 1,
+    "dm_permission": false,
+    "options": [
+      {
+        "name": "set",
+        "description": "Imposta un permesso diretto su un utente",
+        "type": 1,
+        "options": [
+          { "name": "user", "description": "Utente Discord", "type": 6, "required": true },
+          { "name": "key", "description": "Chiave permesso", "type": 3, "required": true },
+          { "name": "value", "description": "Valore: true/false o numero", "type": 3, "required": true },
+          { "name": "grant", "description": "Grant value", "type": 4, "required": false },
+          { "name": "negated", "description": "Nega il permesso", "type": 5, "required": false },
+          { "name": "skip", "description": "Riservato ai permessi canale futuri", "type": 5, "required": false }
+        ]
+      },
+      {
+        "name": "remove",
+        "description": "Rimuove un permesso diretto da un utente",
+        "type": 1,
+        "options": [
+          { "name": "user", "description": "Utente Discord", "type": 6, "required": true },
+          { "name": "key", "description": "Chiave permesso", "type": 3, "required": true }
+        ]
+      },
+      {
+        "name": "list",
+        "description": "Mostra i permessi diretti di un utente",
+        "type": 1,
+        "options": [
+          { "name": "user", "description": "Utente Discord", "type": 6, "required": true }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "perm",
+    "description": "Diagnostica permessi effettivi",
+    "type": 1,
+    "dm_permission": false,
+    "options": [
+      {
+        "name": "check",
+        "description": "Controlla il valore effettivo di un permesso",
+        "type": 1,
+        "options": [
+          { "name": "user", "description": "Utente Discord", "type": 6, "required": true },
+          { "name": "key", "description": "Chiave permesso", "type": 3, "required": true }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sync",
+    "description": "Sincronizza ruoli Discord dai Server Group",
+    "type": 1,
+    "dm_permission": false,
+    "options": [
+      {
+        "name": "user",
+        "description": "Applica all'utente i ruoli collegati ai suoi Server Group",
+        "type": 1,
+        "options": [
+          { "name": "user", "description": "Utente Discord", "type": 6, "required": true }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "audit",
+    "description": "Configura il log amministrativo",
+    "type": 1,
+    "dm_permission": false,
+    "options": [
+      {
+        "name": "set-channel",
+        "description": "Imposta il canale audit",
+        "type": 1,
+        "options": [
+          { "name": "channel", "description": "Canale testuale", "type": 7, "required": true }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "backup",
+    "description": "Esporta la configurazione TS3-like",
+    "type": 1,
+    "dm_permission": false,
+    "options": [
+      {
+        "name": "export",
+        "description": "Esporta gruppi, membership e permessi in JSON",
+        "type": 1
+      }
+    ]
+  }
+]
