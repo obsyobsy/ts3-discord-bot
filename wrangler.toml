@@ -5,5 +5,5 @@ compatibility_date = "2026-07-29"
 [[d1_databases]]
 binding = "DB"
 database_name = "ts3-discord-bot"
-database_id = "replace-with-your-d1-database-id"
+database_id = "d2bc2458-c570-4d4d-88a2-b206d3c002ff"
 migrations_dir = "migrations"
