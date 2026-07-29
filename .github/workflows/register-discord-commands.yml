@@ -1,0 +1,44 @@
+name: Register Discord Commands
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Use guild for immediate testing, global for production"
+        required: true
+        default: "guild"
+        type: choice
+        options:
+          - guild
+          - global
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Register guild commands
+        if: ${{ inputs.scope == 'guild' }}
+        run: npm run register:guild
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+
+      - name: Register global commands
+        if: ${{ inputs.scope == 'global' }}
+        run: npm run register:global
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
