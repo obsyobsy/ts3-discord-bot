@@ -1,10 +1,17 @@
 import { verifyDiscordRequest } from "./crypto";
+import { handleDashboard } from "./dashboard";
 import { interactionMessage } from "./discord";
 import { handleInteraction } from "./handlers";
 import type { DiscordInteraction, Env } from "./types";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/dashboard" || url.pathname.startsWith("/api/dashboard")) {
+      return await handleDashboard(request, env);
+    }
+
     if (request.method === "GET") {
       return new Response("TS3-like Discord bot is online.");
     }

@@ -2,6 +2,7 @@ export interface Env {
   DB: D1Database;
   DISCORD_PUBLIC_KEY: string;
   DISCORD_TOKEN: string;
+  DASHBOARD_ADMIN_TOKEN?: string;
 }
 
 export type PermissionValueType = "boolean" | "integer" | "power";

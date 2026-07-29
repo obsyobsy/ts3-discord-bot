@@ -111,6 +111,16 @@ export async function getServerGroupByName(
   ).bind(guildId, name).first<ServerGroup>();
 }
 
+export async function getServerGroupById(
+  db: D1Database,
+  guildId: string,
+  id: number
+): Promise<ServerGroup | null> {
+  return await db.prepare(
+    "SELECT id, guild_id, name, role_id, sort_order, is_protected FROM server_groups WHERE guild_id = ? AND id = ?"
+  ).bind(guildId, id).first<ServerGroup>();
+}
+
 export async function listServerGroups(db: D1Database, guildId: string): Promise<ServerGroup[]> {
   const result = await db.prepare(
     "SELECT id, guild_id, name, role_id, sort_order, is_protected FROM server_groups WHERE guild_id = ? ORDER BY sort_order DESC, name ASC"
@@ -170,6 +180,16 @@ export async function getServerGroupPermission(
      FROM server_group_permissions
      WHERE server_group_id = ? AND permission_key = ?`
   ).bind(serverGroupId, key).first<PermissionRow>();
+}
+
+export async function removeServerGroupPermission(
+  db: D1Database,
+  serverGroupId: number,
+  key: string
+): Promise<void> {
+  await db.prepare(
+    "DELETE FROM server_group_permissions WHERE server_group_id = ? AND permission_key = ?"
+  ).bind(serverGroupId, key).run();
 }
 
 export async function addServerGroupMember(
@@ -323,6 +343,15 @@ export async function getPermissionDefinition(
   return await db.prepare(
     "SELECT permission_key, value_type, description FROM permission_definitions WHERE permission_key = ?"
   ).bind(key).first<{ permission_key: string; value_type: PermissionValueType; description: string }>();
+}
+
+export async function listPermissionDefinitions(
+  db: D1Database
+): Promise<Array<{ permission_key: string; value_type: PermissionValueType; description: string }>> {
+  const result = await db.prepare(
+    "SELECT permission_key, value_type, description FROM permission_definitions ORDER BY permission_key ASC"
+  ).all<{ permission_key: string; value_type: PermissionValueType; description: string }>();
+  return result.results ?? [];
 }
 
 export async function hasOtherGroupWithRole(
